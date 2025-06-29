@@ -1,11 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TEST Page</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Input Challenge</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .images {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .images img {
+      max-width: 100%;
+      height: auto;
+      width: 30%;
+    }
+
+    input[type="text"] {
+      padding: 0.5rem;
+      font-size: 1rem;
+      width: 200px;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      margin-left: 0.5rem;
+      border: none;
+      border-radius: 5px;
+      background-color: gray;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .correct {
+      background-color: green !important;
+    }
+
+    .incorrect {
+      background-color: red !important;
+    }
+  </style>
 </head>
 <body>
-  <h1>TEST</h1>
+  <h1>Enter the Keyword</h1>
+  <input type="text" id="userInput" placeholder="Type here..." />
+  <button id="submitBtn">Submit</button>
+
+  <div class="images">
+    <img src="assets/image1.jpg" alt="Image 1" />
+    <img src="assets/image2.jpg" alt="Image 2" />
+    <img src="assets/image3.jpg" alt="Image 3" />
+  </div>
+
+  <script>
+    // Hidden function using IIFE and light obfuscation
+    (() => {
+      const sanitize = str => str.replace(/[^a-z0-9]/gi, '').toLowerCase();
+      const correct = 'log4j';
+      const btn = document.getElementById('submitBtn');
+      btn.addEventListener('click', () => {
+        const input = document.getElementById('userInput').value;
+        const clean = sanitize(input);
+        if (clean === correct) {
+          btn.classList.remove('incorrect');
+          btn.classList.add('correct');
+        } else {
+          btn.classList.remove('correct');
+          btn.classList.add('incorrect');
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
