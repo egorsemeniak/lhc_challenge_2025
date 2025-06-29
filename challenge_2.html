@@ -93,31 +93,32 @@
   </div>
 
   <p><a href="index.html" class="back-link">← Back to Main Menu</a></p>
+  
+<script>
+  (() => {
+    const sanitize = str => str.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const correct = 'log4j';
+    const btn = document.getElementById('submitBtn');
+    const message = document.getElementById('resultMessage');
 
-  <script>
-    (() => {
-      const sanitize = str => str.replace(/[^a-z0-9]/gi, '').toLowerCase();
-      const correct = 'eternalblue';
-      const btn = document.getElementById('submitBtn');
-      const message = document.getElementById('resultMessage');
+    btn.addEventListener('click', () => {
+      const input = document.getElementById('userInput').value;
+      const clean = sanitize(input);
 
-      btn.addEventListener('click', () => {
-        const input = document.getElementById('userInput').value;
-        const clean = sanitize(input);
-
-        if (clean === correct) {
-          btn.classList.remove('incorrect');
-          btn.classList.add('correct');
-          message.className = 'message success';
-          message.textContent = 'Good job! The Flag is {this_is_a_test_flag}';
-        } else {
-          btn.classList.remove('correct');
-          btn.classList.add('incorrect');
-          message.className = 'message error';
-          message.textContent = 'Wrong. Try Again!';
-        }
-      });
-    })();
-  </script>
+      if (clean === correct) {
+        btn.classList.remove('incorrect');
+        btn.classList.add('correct');
+        message.className = 'message success';
+        message.textContent = 'Good job! The Flag is {this_is_a_test_flag}';
+      } else {
+        btn.classList.remove('correct');
+        btn.classList.add('incorrect');
+        message.className = 'message error';
+        message.textContent = 'Wrong. Try Again!';
+      }
+    });
+  })();
+</script>
+  
 </body>
 </html>
