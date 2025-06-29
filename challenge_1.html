@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Name That Explouit!</title>
+  <title>Challenge 1</title>
   <style>
     body {
       font-family: sans-serif;
@@ -17,6 +17,7 @@
       justify-content: center;
       gap: 1rem;
       flex-wrap: wrap;
+      margin-top: 2rem;
     }
 
     .images img {
@@ -50,12 +51,41 @@
     .incorrect {
       background-color: red !important;
     }
+
+    .message {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 5px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .message.success {
+      background-color: #d4edda;
+      color: #155724;
+      display: block;
+    }
+
+    .message.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      display: block;
+    }
+
+    .back-link {
+      margin-top: 2rem;
+      display: inline-block;
+      text-decoration: none;
+      color: #333;
+    }
   </style>
 </head>
 <body>
-  <h1>What exploit is it?</h1>
+  <h1>Enter the Keyword</h1>
   <input type="text" id="userInput" placeholder="Type here..." />
   <button id="submitBtn">Submit</button>
+
+  <div id="resultMessage" class="message"></div>
 
   <div class="images">
     <img src="assets/pic_1.jpg" alt="Image 1" />
@@ -63,21 +93,29 @@
     <img src="assets/pic_3.jpg" alt="Image 3" />
   </div>
 
+  <p><a href="index.html" class="back-link">← Back to Main Menu</a></p>
+
   <script>
-    // Hidden function using IIFE and light obfuscation
     (() => {
       const sanitize = str => str.replace(/[^a-z0-9]/gi, '').toLowerCase();
       const correct = 'log4j';
       const btn = document.getElementById('submitBtn');
+      const message = document.getElementById('resultMessage');
+
       btn.addEventListener('click', () => {
         const input = document.getElementById('userInput').value;
         const clean = sanitize(input);
+
         if (clean === correct) {
           btn.classList.remove('incorrect');
           btn.classList.add('correct');
+          message.className = 'message success';
+          message.textContent = 'Good job! The Flag is {this_is_a_test_flag}';
         } else {
           btn.classList.remove('correct');
           btn.classList.add('incorrect');
+          message.className = 'message error';
+          message.textContent = 'Wrong. Try Again!';
         }
       });
     })();
